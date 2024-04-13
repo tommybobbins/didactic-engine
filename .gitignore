@@ -4,6 +4,7 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
+gcp_deployment_creds.json
 
 # Crash log files
 crash.log
