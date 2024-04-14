@@ -57,8 +57,18 @@ variable "argo_version" {
 }
 
 variable "argo_workflows_version" {
-  description = "Helm Chart version for ArgoCD"
+  description = "Helm Chart version for Argo Workflows"
   default     = "0.41.1"
+}
+
+variable "argo_rollouts_version" {
+  description = "Helm Chart version for Argo Rollouts"
+  default     = "2.35.1"
+}
+
+variable "argo_events_version" {
+  description = "Helm Chart version for Argo Events"
+  default     = "2.4.4"
 }
 
 variable "argocd_enabled" {
@@ -69,6 +79,18 @@ variable "argocd_enabled" {
 
 variable "argoworkflows_enabled" {
   description = "Argo Workflows enabled"
+  type        = bool
+  default     = false
+}
+
+variable "argorollouts_enabled" {
+  description = "Argo Rollouts enabled"
+  type        = bool
+  default     = false
+}
+
+variable "argoevents_enabled" {
+  description = "Argo Events enabled"
   type        = bool
   default     = false
 }

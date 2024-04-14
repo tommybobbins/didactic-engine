@@ -98,8 +98,52 @@ Enable Argo workflows by editing the terraform.tfvars so that is looks like the 
 argocd_enabled        = false
 argoworkflows_enabled = true
 ````
+Re-run the tofu
 
+````
+$ tofu apply
+````
 Port forward to the workflows server
 ````
 $ kubectl -n argo port-forward deployment/argo-workflows-server 2746:2746
+$ kubectl create rolebinding default-admin --clusterrole=admin --serviceaccount=argo:default -n argo
+rolebinding.rbac.authorization.k8s.io/default-admin created
+$ kubectl create -f workflows/dag-workflow-template.yaml
+workflowtemplate.argoproj.io/whalesay-template created
+$ kubectl create -f workflows/dag-workflow.yaml 
+workflow.argoproj.io/dag-diamond-zrwsl created
+$ kubectl get workflowtemplates
+No resources found in default namespace.
+$ kubectl get workflowtemplates -n argo
+NAME                AGE
+whalesay-template   12s
+$ kubectl get workflows -n argo
+NAME                STATUS    AGE   MESSAGE
+dag-diamond-zrwsl   Running   13s   
+$ kubectl get workflows -n argo
+NAME                STATUS    AGE   MESSAGE
+dag-diamond-zrwsl   Running   15s 
+````
+
+### Lab 5.1  Installing Argo Rollouts
+
+Enable Argo Rollouts by editing the terraform.tfvars so that is looks like the below:
+````
+argocd_enabled        = false
+argoworkflows_enabled = false
+argorollouts_enabled  = true
+````
+Re-run the tofu
+
+### Lab 6.1
+
+````
+#$ kubectl create -f events/install.yaml
+$ kubectl create -f events/install-validating-webhook.yaml 
+$ kubectl create -f -n argo-events events/native.yaml 
+$ kubectl create -f -n argo-events events/webhook.yaml 
+$ kubectl create -f -n argo-events events/sensor-rbac.yaml 
+$ kubectl create -f -n argo-events events/workflow-rbac.yaml 
+$ kubectl create -f -n argo-events events/webhook-sensors.yaml 
+$ ./events/expose-webhook.sh
 ````

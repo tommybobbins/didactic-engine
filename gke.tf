@@ -35,6 +35,8 @@ resource "google_container_cluster" "primary" {
     services_ipv4_cidr_block = "10.192.0.0/16"
   }
 
+  deletion_protection = false
+
 }
 
 # Separately Managed Node Pool
