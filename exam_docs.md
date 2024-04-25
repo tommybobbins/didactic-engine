@@ -4,20 +4,21 @@
 
 ## Components
 
-ArgoCD API Server - Manage applications and status updates, triggers, git repos for version, kubernetes credentials, SSO, RBAC, WebUI/CLI/Events/CICD.
-ArgoCD Repository Server - Poll git and retrieve the desired state.
-ArgoCD Application Controller - reconcile the deployment with the desired state. Rollouts.
+- ArgoCD API Server - Manage applications and status updates, triggers, git repos for version, kubernetes credentials, SSO, RBAC, WebUI/CLI/Events/CICD.
+- ArgoCD Repository Server - Poll git and retrieve the desired state.
+- ArgoCD Application Controller - reconcile the deployment with the desired state. Rollouts.
 
 
 ## Resource hooks
 
-PreSync
-Sync - Do actions on the manifests.
-PostSync
-Skip - skip application
-SyncFail - cleanup
+- PreSync
+- Sync - Do actions on the manifests.
+- PostSync
+- Skip - skip application
+- SyncFail - cleanup
 
-Sync wave - negative->positive values, annotations
+A sync wave allows syncs to be ordered and goes from negative->positive values. It is applied to applications using the annotation:
+
 ````
 argocd.argoproj.io/sync-wave: "5"
 ````
@@ -33,10 +34,10 @@ Default 2 second delay between each sync wave - ARGO_SYNC_WAVE_DELAY
 
 ## Simplifying Application Management
 
-Application - base unit of an application instance.
-AppProject - collection of applications.
-RepositoryCredentials - git access
-ClusterCredentials - Access to other clusters.
+- Application - base unit of an application instance.
+- AppProject - collection of applications.
+- RepositoryCredentials - git access
+- ClusterCredentials - Access to other clusters.
 
 ## Plugins
 
@@ -44,7 +45,8 @@ e.g Notifications plugin for slack - configured via configmap.
 
 # Argo Workflows
 
-Workflow series of tasks, processes or steps executed in a particular sequence. CRD.
+Workflow are defined as a series of tasks, processes or steps executed in a particular sequence. CRD.
+
 -  Entrypoint: template that is entrypoint for workflow. 
 -  Templates: step or task in the workflow which will be run.
 
@@ -65,7 +67,6 @@ Argo workflows - outputs define and capture outputs to be accessed by subsequent
 
 Shareable and reusable allows users to encapsulate workflow logic, parameters and metadata.  {{inputs.parameters.msg}}
 
-
 ## Workflow Components
 
 - Argo Server: REST API/Central component overall resources, state and interactions.
@@ -73,7 +74,6 @@ Shareable and reusable allows users to encapsulate workflow logic, parameters an
 - Argo UI
 
 Workflows can run in any namespace, but the Argo server, workflow controller and UI run in the argocd namespace (cf argocd).
-
 
 ## Workflow Overview
 
@@ -109,7 +109,7 @@ Argo Events - event driven architecture within k8s (cf. kafka/SQS)
 
 Event Driven Architecture
 
-Event Source - Generation.
-Sensor - listeners in Argo Events.
-EventBus - backbone for event distribution.
-Trigger - mechanism to respond to sensor events
+- Event Source - Generation.
+- Sensor - listeners in Argo Events.
+- EventBus - backbone for event distribution.
+- Trigger - mechanism to respond to sensor events
